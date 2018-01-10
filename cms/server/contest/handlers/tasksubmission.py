@@ -219,7 +219,7 @@ class SubmitHandler(BaseHandler):
         task_type = get_task_type(dataset=task.active_dataset)
         provided = set(self.request.files.keys())
         if not (required == provided or (task_type.ALLOW_PARTIAL_SUBMISSION
-                                         and required.issuperset(provided))):
+                                         and required.issuperset(provided) and len(provided)>0)):
             self._send_error(
                 self._("Invalid submission format!"),
                 self._("Please select the correct files."),

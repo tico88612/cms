@@ -26,8 +26,10 @@
 <div class="row statement one_statement">
     <div class="span9">
     {% for lang_code in task.statements %}
-        <a href="{{ url_root }}/tasks/{{ encode_for_url(task.name) }}/statements/{{ encode_for_url(lang_code) }}" class="btn btn-large btn-success">{{ _("Download task statement") }}</a>
+        <a href="{{ url_root }}/tasks/{{ encode_for_url(task.name) }}/statements/view" class="btn btn-large btn-success" target="_blank" style="margin-right: 10px;">觀看題目敘述</a>
+        <a href="{{ url_root }}/tasks/{{ encode_for_url(task.name) }}/statements/{{ encode_for_url(lang_code) }}" class="btn btn-large btn-default" style="margin-left: 10px;">{{ _("Download task statement") }}</a>
     {% end %}
+	
     </div>
 </div>
 {% else %}

@@ -105,6 +105,13 @@ class TaskStatementViewHandler(FileHandler):
             task = self.contest.get_task(task_name)
         except KeyError:
             raise tornado.web.HTTPError(404)
+        
+        if lang_code=="view":
+            statement = task.statements[task.statements.keys()[0]].digest
+            self.sql_session.close()
+            filename = "%s.pdf" % task.name
+            self.fetch(statement, "application/pdf", filename, 1)
+            return
 
         if lang_code not in task.statements:
             raise tornado.web.HTTPError(404)

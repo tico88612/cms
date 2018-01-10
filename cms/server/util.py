@@ -577,7 +577,7 @@ def file_handler_gen(BaseClass):
         """Base class for handlers that need to serve a file to the user.
 
         """
-        def fetch(self, digest, content_type, filename):
+        def fetch(self, digest, content_type, filename, to_view=0):
             """Send a file from FileCacher by its digest."""
             if digest == "":
                 logger.error("No digest given")
@@ -591,7 +591,7 @@ def file_handler_gen(BaseClass):
                              exc_info=True)
                 self.finish()
                 return
-            self._fetch_temp_file(content_type, filename)
+            self._fetch_temp_file(content_type, filename, to_view)
 
         def fetch_from_filesystem(self, filepath, content_type, filename):
             """Send a file from filesystem by filepath."""
@@ -604,14 +604,16 @@ def file_handler_gen(BaseClass):
                 return
             self._fetch_temp_file(content_type, filename)
 
-        def _fetch_temp_file(self, content_type, filename):
+        def _fetch_temp_file(self, content_type, filename, to_view=0):
             """When calling this method, self.temp_file must be a fileobj
             seeked at the beginning of the file.
-
-            """
+			"""
             self.set_header("Content-Type", content_type)
-            self.set_header("Content-Disposition",
-                            "attachment; filename=\"%s\"" % filename)
+			
+            if to_view==0:
+               self.set_header("Content-Disposition","attachment; filename=\"%s\"" % filename)
+            else:
+               self.set_header("Content-Disposition","inline; filename=\"%s\"" % filename)
             self.start_time = time.time()
             self.size = 0
 
