@@ -198,7 +198,7 @@ class Task(Base):
         Enum(SCORE_MODE_MAX_TOKENED_LAST, SCORE_MODE_MAX,
              name="score_mode"),
         nullable=False,
-        default=SCORE_MODE_MAX_TOKENED_LAST)
+        default=SCORE_MODE_MAX)
 
     # Active Dataset (id and object) currently being used for scoring.
     # The ForeignKeyConstraint for this column is set at table-level.
