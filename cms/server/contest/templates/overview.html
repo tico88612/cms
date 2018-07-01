@@ -13,9 +13,9 @@
 <h2>{{ _("General information") }}</h2>
 <div class="row">
 {% if contest.per_user_time is not None %}
-    <div class="span5">
+    <div class="span5 information">
 {% else %}
-    <div class="span9">
+    <div class="span9 information">
 {% end %}
         <p>
 {% if phase == -1 %}
@@ -93,6 +93,19 @@
     <p>
     {{ _("You can submit at most %(user_tests)s user tests during this contest.") % {"user_tests": contest.max_user_test_number} }}
     </p>
+{% end %}
+
+{% if contest.information is not ""%}
+    
+    <hr>
+
+    <script src="./static/marked/marked.min.js"></script>
+    <script>
+        $('.information').append(marked('{{contest.information.replace('\r\n','\\n')}}'));
+    </script>
+    
+    
+    
 {% end %}
 
     </div>
