@@ -84,6 +84,7 @@ class ContestHandler(SimpleContestHandler("contest.html")):
 
             self.get_string(attrs, "name", empty=None)
             self.get_string(attrs, "description")
+            self.get_string(attrs, "information")
 
             assert attrs.get("name") is not None, "No contest name specified."
 

@@ -237,6 +237,12 @@ class Contest(Base):
         nullable=False,
         default=0)
 
+    # Description of the contest (human readable).
+    information = Column(
+        Unicode,
+        nullable=False,
+        default="")
+
     # Follows the description of the fields automatically added by
     # SQLAlchemy.
     # tasks (list of Task objects)
