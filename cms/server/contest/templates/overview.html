@@ -101,7 +101,7 @@
 
     <script src="./static/marked/marked.min.js"></script>
     <script>
-        $('.information').append(marked('{{contest.information.replace('\r\n','\\n')}}'));
+        $('.information').append(marked('{% raw contest.information.replace('\r\n','\\n') %}'));
     </script>
     
     
