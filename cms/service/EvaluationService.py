@@ -888,6 +888,11 @@ class EvaluationService(TriggeredService):
             contest_id = self.contest_id
 
         with SessionGen() as session:
+            if task_id is None and dataset_id is not None:
+                query = session.query(Dataset)
+                query = query.filter(Dataset.id == dataset_id)
+                task_id = query.first().task_id
+
             # First we load all involved submissions.
             submissions = get_submissions(
                 # Give contest_id only if all others are None.
@@ -910,6 +915,9 @@ class EvaluationService(TriggeredService):
                     self.get_executor().pool.ignore_operation(operation)
                 except LookupError:
                     pass  # Ok, the operation wasn't in the pool.
+            
+            if dataset_id is not None and task_id is not None:
+                task_id = None
 
             # Then we find all existing results in the database, and
             # we remove them.
