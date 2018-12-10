@@ -72,8 +72,8 @@ def get_submissions(contest_id=None, participation_id=None, task_id=None,
             "contest_id is superfluous if participation_id is given")
     if submission_id is not None and contest_id is not None:
         raise ValueError("contest_id is superfluous if submission_id is given")
-    if submission_id is not None and task_id is not None:
-        raise ValueError("task_id is superfluous if submission_id is given")
+    #if submission_id is not None and task_id is not None:
+    #    raise ValueError("task_id is superfluous if submission_id is given")
     if submission_id is not None and participation_id is not None:
         raise ValueError(
             "participation_id is superfluous if submission_id is given")
