@@ -97,7 +97,7 @@ class ContestWebServer(WebService):
             HANDLERS.append((r"/", MainHandler))
             handlers = [(r'/', ContestListHandler)]
             for h in HANDLERS:
-                handlers.append((r'/([^/]+)' + h[0],) + h[1:])
+                handlers.append((r'/(\d+)' + h[0],) + h[1:])
         else:
             HANDLERS.append((r"/", MainHandler))
             handlers = HANDLERS
