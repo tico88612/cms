@@ -88,7 +88,7 @@ class ContestHandler(BaseHandler):
         super(ContestHandler, self).prepare()
 
         if self.is_multi_contest():
-            self.contest_url = self.url[self.contest.name]
+            self.contest_url = self.url[self.contest.id]
         else:
             self.contest_url = self.url
 
@@ -106,14 +106,14 @@ class ContestHandler(BaseHandler):
         if self.is_multi_contest():
             # Choose the contest found in the path argument
             # see: https://github.com/tornadoweb/tornado/issues/1673
-            contest_name = self.path_args[0]
+            contest_id = self.path_args[0]
 
             # Select the correct contest or return an error
             self.contest = self.sql_session.query(Contest)\
-                .filter(Contest.name == contest_name).first()
+                .filter(Contest.id == contest_id).first()
             if self.contest is None:
                 self.contest = Contest(
-                    name=contest_name, description=contest_name)
+                    name=contest_id, description=contest_id)
                 # render_params in this class assumes the contest is loaded,
                 # so we cannot call it without a fully defined contest. Luckily
                 # the one from the base class is enough to display a 404 page.
