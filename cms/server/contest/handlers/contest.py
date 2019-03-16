@@ -45,7 +45,7 @@ import tornado.web
 
 from cms import config, TOKEN_MODE_MIXED
 from cms.db import Contest, Submission, Task, UserTest
-from cms.server import FileHandlerMixin
+from cms.server import FileHandlerMixin, Url
 from cms.locale import filter_language_codes
 from cms.server.contest.authentication import authenticate_request
 from cmscommon.datetime import get_timezone
@@ -88,7 +88,11 @@ class ContestHandler(BaseHandler):
         super(ContestHandler, self).prepare()
 
         if self.is_multi_contest():
-            self.contest_url = self.url[self.contest.id]
+            if self.url.url_root.count('..') > 1:
+                self.contest_url = Url(self.url.url_root[3:])
+            else:
+                self.contest_url = Url(self.url.url_root[1:])
+            self.contest_url.url_root += '/'
         else:
             self.contest_url = self.url
 

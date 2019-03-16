@@ -93,9 +93,8 @@ class ContestWebServer(WebService):
         self.contest_id = contest_id
 
         if self.contest_id is None:
-            HANDLERS.append((r"", MainHandler))
             HANDLERS.append((r"/", MainHandler))
-            handlers = [(r'/', ContestListHandler)]
+            handlers = []
             for h in HANDLERS:
                 handlers.append((r'/(\d+)' + h[0],) + h[1:])
         else:
