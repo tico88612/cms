@@ -661,6 +661,9 @@ msgstr "本題沒有敘述"
 msgid "Download task statement"
 msgstr "下載題目敘述"
 
+msgid "View task statement"
+msgstr "觀看題目敘述"
+
 msgid ""
 "The statement for this task is available in multiple versions, in different "
 "languages."

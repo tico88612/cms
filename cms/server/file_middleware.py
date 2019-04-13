@@ -55,6 +55,7 @@ class FileServerMiddleware(object):
 
     DIGEST_HEADER = "X-CMS-File-Digest"
     FILENAME_HEADER = "X-CMS-File-Filename"
+    STATEMENT_VIEW_HEADER = "X-CMS-Statement_View"
 
     def __init__(self, file_cacher, app):
         """Create an instance.
@@ -94,6 +95,7 @@ class FileServerMiddleware(object):
         digest = original_response.headers.pop(self.DIGEST_HEADER)
         filename = original_response.headers.pop(self.FILENAME_HEADER, None)
         mimetype = original_response.mimetype
+        statement_view = original_response.headers.pop(self.STATEMENT_VIEW_HEADER, None)
 
         try:
             fobj = self.file_cacher.get_file(digest)
@@ -110,8 +112,12 @@ class FileServerMiddleware(object):
         response.status_code = 200
         response.mimetype = mimetype
         if filename is not None:
-            response.headers.add(
-                "Content-Disposition", "attachment", filename=filename)
+            if not statement_view:
+                response.headers.add(
+                    "Content-Disposition", "attachment", filename=filename)
+            else:
+                response.headers.add(
+                    "Content-Disposition", "inline", filename=filename)
         response.set_etag(digest)
         response.cache_control.max_age = SECONDS_IN_A_YEAR
         response.cache_control.private = True
