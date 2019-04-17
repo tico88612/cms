@@ -274,7 +274,8 @@ class ProxyService(TriggeredService):
         # example.
         self.initialize()
 
-        self.start_sweeper(347.0)
+        sweeper_timeout = 5.0 # was 347.0
+        self.start_sweeper(sweeper_timeout)
 
     def _missing_operations(self):
         """Return a generator of data to be sent to the rankings..
