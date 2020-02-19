@@ -89,7 +89,7 @@ class TaskStatementViewHandler(FileHandler):
         else:
             filename = "%s.pdf" % task.name
 
-        if self.request.arguments.has_key('view'):
+        if "view" in self.request.arguments:
             self.fetch(statement, "application/pdf", filename, view=True)
         else:
             self.fetch(statement, "application/pdf", filename)
